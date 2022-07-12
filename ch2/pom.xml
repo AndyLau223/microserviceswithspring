@@ -17,10 +17,14 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
+
+<!--        to display restful API model-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
+
+<!--        to display the health of microservice-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
