@@ -1,0 +1,10 @@
+spring:
+  application:
+#    this name has to map directly to the name of the config directory within Spring Cloud configguration server
+    name: licensing-service
+  profiles:
+    active: dev
+  cloud:
+      config:
+#        specify config server address.
+          uri: http://localhost:8071
