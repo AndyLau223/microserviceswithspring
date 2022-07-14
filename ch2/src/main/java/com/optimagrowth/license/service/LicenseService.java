@@ -1,11 +1,17 @@
 package com.optimagrowth.license.service;
 
+import com.optimagrowth.license.config.ServiceConfig;
 import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.model.Organization;
+import com.optimagrowth.license.service.client.OrganizationDiscoveryClient;
+import com.optimagrowth.license.service.client.OrganizationFeignClient;
+import com.optimagrowth.license.service.client.OrganizationRestTemplateClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Locale;
 import java.util.Random;
 
@@ -13,6 +19,24 @@ import java.util.Random;
 public class LicenseService {
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    ServiceConfig config;
+
+    @Resource
+    OrganizationFeignClient organizationFeignClient;
+
+    @Autowired
+    OrganizationRestTemplateClient organizationRestClient;
+
+    @Autowired
+    OrganizationDiscoveryClient organizationDiscoveryClient;
+
+    public License getLicense(String licenseId, String organizationId, String clientType) {
+// just for illustrative purposes, in real project we should get from database
+        return getLicense(licenseId, organizationId);
+    }
+
 
     public License getLicense(String licenseId, String organizationId) {
         License license = new License();
@@ -40,7 +64,7 @@ public class LicenseService {
 
     public String updateLicense(final License license,
                                 String organizationId
-                                ) {
+    ) {
         String res = null;
         if (license != null) {
             license.setOrganizationId(organizationId);
@@ -55,5 +79,27 @@ public class LicenseService {
         return res;
     }
 
+    private Organization retrieveOrganizationInfo(String organizationId, String clientType) {
+        Organization organization = null;
 
+        switch (clientType) {
+            case "feign":
+                System.out.println("I am using the feign client");
+                organization = organizationFeignClient.getOrganization(organizationId);
+                break;
+            case "rest":
+                System.out.println("I am using the rest client");
+                organization = organizationRestClient.getOrganization(organizationId);
+                break;
+            case "discovery":
+                System.out.println("I am using the discovery client");
+                organization = organizationDiscoveryClient.getOrganization(organizationId);
+                break;
+            default:
+                organization = organizationRestClient.getOrganization(organizationId);
+                break;
+        }
+
+        return organization;
+    }
 }

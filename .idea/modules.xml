@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/configserver/configserver.iml" filepath="$PROJECT_DIR$/configserver/configserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eurekaserver/eurekaserver.iml" filepath="$PROJECT_DIR$/eurekaserver/eurekaserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/ch2/licensing-service.iml" filepath="$PROJECT_DIR$/ch2/licensing-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/microserviceswithspring.iml" filepath="$PROJECT_DIR$/.idea/microserviceswithspring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/organization-service/organization-service.iml" filepath="$PROJECT_DIR$/organization-service/organization-service.iml" />
     </modules>
   </component>
 </project>
